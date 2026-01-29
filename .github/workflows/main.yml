@@ -1,9 +1,9 @@
-name: Post JSON File to Two URLs
+name: Post Random JSON Data
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '*/5 * * * *'
+  
   workflow_dispatch:
 
 jobs:
@@ -13,6 +13,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Generate Random Data
+        run: |
+          # Generate random temp between 20-35
+          TEMP=$((20 + RANDOM % 16))
+          # Generate random humidity between 40-60
+          HUMIDITY=$((40 + RANDOM % 21))
+          
+          # Create the JSON file
+          echo "{ \"temperature\": $TEMP, \"humidity\": $HUMIDITY }" > stream.json
+          
+          # Optional: Print it to the logs so you can see it
+          cat stream.json
 
       - name: Send JSON Data to First URL
         run: |
