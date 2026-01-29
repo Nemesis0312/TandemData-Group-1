@@ -14,14 +14,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Send JSON Data to First URL
+      - name: Send JSON Data to https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAKfJQBfU6kI1pNx5JlgbYz8AAAAA
         run: |
           curl --fail -X POST "https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAKfJQBfU6kI1pNx5JlgbYz8AAAAA" \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.TANDEM_API_TOKEN }}" \
           -d @stream.json
 
-      - name: Send JSON Data to Second URL
+      - name: Send JSON Data to https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/SECOND_STREAM_ID_HERE
         run: |
           curl --fail -X POST "https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/SECOND_STREAM_ID_HERE" \
           -H "Content-Type: application/json" \
