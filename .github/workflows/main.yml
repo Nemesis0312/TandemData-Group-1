@@ -1,22 +1,29 @@
 name: Post JSON File to Two URLs
+
 on:
-push:
-branches:
-- main # Runs only when pushing to the main branch
-workflow_dispatch: # Allows manual trigger
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
-post_json:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout Repository
-uses: actions/checkout@v3
-- name: Send JSON Data to First URL
-run: |
-curl -X POST "https://:edQ0LQWNTbmPpecNdQSatg@eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAKfJQBfU6kI1pNx5JlgbYz8AAAAA" \
--H "Content-Type: application/json" \
--d @stream.json
-- name: Send JSON Data to Second URL
-run: |
-curl -X POST "https://:edQ0LQWNTbmPpecNdQSatg@eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAKfJQBfU6kI1pNx5JlgbYz8AAAAA" \
--H "Content-Type: application/json" \
--d @stream.json
+  post_json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Send JSON Data to First URL
+        run: |
+          curl --fail -X POST "https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAKfJQBfU6kI1pNx5JlgbYz8AAAAA" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.TANDEM_API_TOKEN }}" \
+          -d @stream.json
+
+      - name: Send JSON Data to Second URL
+        run: |
+          curl --fail -X POST "https://eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/SECOND_STREAM_ID_HERE" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.TANDEM_API_TOKEN }}" \
+          -d @stream.json
