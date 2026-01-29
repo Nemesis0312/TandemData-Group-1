@@ -8,8 +8,7 @@ on:
 
 jobs:
   post_json:
-    # This was the likely source of the error on line 12
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -23,6 +22,6 @@ jobs:
 
       - name: Send JSON Data to Second URL
         run: |
-          curl -X POST "https://:7j4NKSmuQ96pYXkQ4UcowA@eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAAGxsQ52QE9fhPHCFiH4f0gAAAAAE" \
+          curl -X POST "https://:7j4NKSmuQ96pYXkQ4UcowA@eu.tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:v_U7pMq4Sqyk4CxaT86PqQ/streams/AQAAAAGxsQ52QE9fhPHCFiH4f0gAAAAA" \
           -H "Content-Type: application/json" \
           -d @stream.json
